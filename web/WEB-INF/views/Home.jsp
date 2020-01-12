@@ -14,7 +14,7 @@
     <head>
         <!-- Required meta tags -->
         <meta http-equiv="Content-Language" content="pt-br">
-        <meta name="description" content="WorkHoursApp">
+        <meta name="description" content="WorkHours App">
         <meta name="author" content="Fábio Tavares Dippold">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,19 +33,25 @@
     </head>
 
     <body class="text-center">
-
-        <h1 class="h3 mb-3 font-weight-normal">Home</h1>
-
-        <br>WorkHoursApp | Copyright 2020 <i class="fas fa-award"></i> <i class="fab fa-java"></i>
-        <br>By Software WorkForce
-
-
-        <!-- DIV MENSAGEM -->
-        <c:if test="${!msg.equals('')}">
-            <br>${msg}
-        </c:if><!-- /DIV MENSAGEM -->
-
-
+        
+        <form class="form-signin" method="POST" action="mvc?cmd=LogOutCmd">
+ 
+            <h1 class="h3 mb-3 font-weight-normal">Home</h1>
+ 
+            <BR><BR>
+            
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sair</button>
+ 
+            <br>WorkHours App | Copyright 2020 <i class="fas fa-award"></i> <i class="fab fa-java"></i>
+            <br>By Software WorkForce
+ 
+ 
+            <!-- DIV MENSAGEM -->
+            <c:if test="${!msg.equals('')}">
+                <br>${msg}
+            </c:if><!-- /DIV MENSAGEM -->
+ 
+        </form>        
 
         <!-- Bootstrap core JavaScript
         ================================================== -->

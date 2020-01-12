@@ -38,14 +38,14 @@
             <h1 class="h3 mb-3 font-weight-normal">Autenticação</h1>
  
             <label for="inputEmail" class="sr-only">E-mail</label>
-            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="fabio.dippold@neogrid.com" required>
+            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="dippold.br@gmail.com" required>
  
             <label for="inputPassword" class="sr-only">Senha</label>
-            <input type="password" id="inputPassword" name="passwd" class="form-control" placeholder="Password" value="galateo" required>
+            <input type="password" id="inputPassword" name="passwd" class="form-control" placeholder="Password" value="galateo2013" required>
  
             <button class="btn btn-lg btn-primary btn-block" type="submit">Autenticar</button>
  
-            <br>WorkHoursApp | Copyright 2020 <i class="fas fa-award"></i> <i class="fab fa-java"></i>
+            <br>WorkHours App | Copyright 2020 <i class="fas fa-award"></i> <i class="fab fa-java"></i>
             <br>By Software WorkForce
  
  
@@ -69,7 +69,8 @@
         <script type="text/javascript">
  
             $(document).ready(function () {
-                 alert("Hello Oasis!");
+                
+
             });
  
         </script>

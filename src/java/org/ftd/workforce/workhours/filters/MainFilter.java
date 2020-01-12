@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.ftd.workforce.workhours.services.LogService;
 import org.softwareworkforce.web.mvc.enums.MSGS;
 import org.softwareworkforce.web.mvc.enums.MVC;
 import org.softwareworkforce.web.mvc.enums.VIEWS;
@@ -54,35 +55,32 @@ public class MainFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         boolean isUserAuthorized = false;
-
-        String firewallMsg = "";
+        String userId = "";
+        String userName = "";
+        String userRuleId = "";
 
         if (session != null) {
 
-            String userId = (String) session.getAttribute("userId");
-            String userName = (String) session.getAttribute("userName");
-            String userRuleId = (String) session.getAttribute("userRuleId");
+            userId = (String) session.getAttribute("userId");
+            userName = (String) session.getAttribute("userName");
+            userRuleId = (String) session.getAttribute("userRuleId");
 
             if ((userId != null)
                     && (!userId.equals(""))
                     && (userName != null)
-                    && (!userName.equals("")
-                    && (!userRuleId.equals("")))) {
-                
-                isUserAuthorized = true;
+                    && (!userName.equals(""))
+                    && (userRuleId != null)
+                    && (!userRuleId.equals("")))
+            {               
+                isUserAuthorized = true;                
             }
             
         }
 
         if (isUserAuthorized) {
-            if (DEBUG) {
-                System.out.println(firewallMsg);
-            }
+            LogService.getInstance().simpleRecordUserActivity(Long.parseLong(userId), userName, "User","Login autorizado");
             chain.doFilter(request, response);
         } else {
-            if (DEBUG) {
-                System.out.println(firewallMsg);
-            }
             request.setAttribute(MVC.MSG.getName(), MSGS.INVALID_SESSION.getName());
             req.getRequestDispatcher(VIEWS.LOGIN.getName()).forward(req, res);
         }
