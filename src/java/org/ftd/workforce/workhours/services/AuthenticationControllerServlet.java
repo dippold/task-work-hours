@@ -61,7 +61,7 @@ public class AuthenticationControllerServlet extends HttpServlet {
                 session.setAttribute("userName", user.getName());
                 session.setAttribute("userRuleId", Long.toString(user.getRuleId()));
 
-                request.getRequestDispatcher( buildUrl("HomeCmd",MODEL.LST.getName()) ).forward(request, response);
+                request.getRequestDispatcher( buildUrl(APP.CMD_HOME.getValue(),MODEL.LST.getName()) ).forward(request, response);
                 
             } else {
                 

@@ -4,7 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.softwareworkforce.web.mvc.enums.MVC;
+import org.ftd.workforce.workhours.services.MenuService;
 import org.softwareworkforce.web.mvc.enums.VIEWS;
 import org.softwareworkforce.web.mvc.interfaces.ICmd;
 
@@ -22,8 +22,7 @@ public class HomeCmd implements ICmd {
             throws ServletException, IOException {
 
         String nextCmd = VIEWS.HOME.getName();
-
-        req.setAttribute(MVC.MSG.getName(), "Seja bem-vindo!");
+        MenuService.getInstance().buildMenuModel(req);
         
         return nextCmd;
     }

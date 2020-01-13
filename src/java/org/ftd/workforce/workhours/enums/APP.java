@@ -13,8 +13,10 @@ import java.util.LinkedList;
 public enum APP {
     
     PERSISTENCE_UNIT("TasksPU"),
-    APP_NAME("Work Hours"); 
-
+    APP_NAME("Work Hours"), 
+    CMD_HOME("HomeCmd"),
+    CMD_LOGOUT("LogOutCmd");
+    
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();
         for (APP o : APP.values()) {
