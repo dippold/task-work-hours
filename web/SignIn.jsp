@@ -1,7 +1,7 @@
 <%--
     Document   : SignIn.jsp
     Created on : 17/05/2018, 10:01:43
-    Updated on : 11/01/2020, 13:06:00
+    Updated on : 14/01/2020, 13:06:00
     Author     : Fabio Tavares Dippold
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">      
-        <title>Work Hours App</title>
+        <title>Work Hours</title>
         <link rel="shortcut icon" href="assets/core/images/ftd-logo.jpg">
         <!-- Custom styles for this template -->
         <link href="assets/custom/css/signin.css" rel="stylesheet">
@@ -28,7 +28,8 @@
 
     <body class="text-center">       
         <form id="frmLogin" class="form-signin" method="POST" action="signin">
-            <h1 class="h3 mb-3 font-weight-normal">Autenticação</h1>
+            <h1 id="appName">Work Hours App</h1>
+            <h2 id="title">Autenticação</h1>
             <label for="inputEmail" class="sr-only">E-mail</label>
             <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="dippold.br@gmail.com" required>
             <label for="inputPassword" class="sr-only">Senha</label>
@@ -38,7 +39,7 @@
             <br>By Software WorkForce
             <!-- DIV MENSAGEM -->
             <c:if test="${!msg.equals('')}">
-                <br>${msg}
+                <br><span id="spanMsg">${msg}</span>
             </c:if><!-- /DIV MENSAGEM -->
         </form>
 

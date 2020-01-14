@@ -43,4 +43,21 @@ body {
   border-top-right-radius: 0;
 }
 
+#appName{
+    font-style: normal;
+    text-align:center;
+    text-shadow: 0.1em 0.1em 0.2em black;
+}
+
+#title{
+    font-style: normal;
+    text-align:center;
+}
+
+#spanMsg{
+    color:red;
+    font-style: normal;
+    text-align:center;
+    text-shadow: 0.1em 0.1em 0.2em black;    
+}
 
