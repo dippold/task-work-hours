@@ -28,7 +28,7 @@
 
     <body class="text-center">       
         <form id="frmLogin" class="form-signin" method="POST" action="signin">
-            <h1 id="appName">Work Hours App</h1>
+            <h2 id="appName">Work Hours App</h2>
             <h2 id="title">Autenticação</h1>
             <label for="inputEmail" class="sr-only">E-mail</label>
             <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="dippold.br@gmail.com" required>
