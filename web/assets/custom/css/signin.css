@@ -52,6 +52,11 @@ body {
 #title{
     font-style: normal;
     text-align:center;
+    text-shadow: 0.1em 0.1em 0.2em black;    
+}
+
+#btnSubmit {
+    text-shadow: 0.1em 0.1em 0.2em black;
 }
 
 #spanMsg{
