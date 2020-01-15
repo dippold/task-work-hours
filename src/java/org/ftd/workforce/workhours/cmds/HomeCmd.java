@@ -21,7 +21,8 @@ public class HomeCmd implements ICmd {
     public String execute(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
-        MenuService.getInstance().buildMenuModel(req);        
+        MenuService.getInstance().buildMenuModel(req);
+        
         String nextCmd = VIEWS.HOME.getName();
         
         
