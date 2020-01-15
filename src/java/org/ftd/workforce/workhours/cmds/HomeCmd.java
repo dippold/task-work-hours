@@ -31,13 +31,12 @@ public class HomeCmd implements ICmd {
             RULES.PROJECT_MANAGER,
             RULES.TASK_ADMIN,
             RULES.PROJECT_STAKEHOLDER
-        };        
-                
-        boolean securityValidade = SecurityManager.getInstance().validate(req, rules);
+        };
         
-        String nextCmd;
+        boolean securityValidate = SecurityManager.getInstance().validate(req, rules);
         
-        if (!securityValidade) {
+        String nextCmd;        
+        if (!securityValidate) {
             req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE.getName() + this.getClass().getSimpleName());
             nextCmd = APP.URL_SECURITY_LOGOUT.getValue();            
         } else {

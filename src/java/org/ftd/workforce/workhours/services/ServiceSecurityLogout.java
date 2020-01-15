@@ -1,7 +1,6 @@
 package org.ftd.workforce.workhours.services;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +15,8 @@ import org.softwareworkforce.web.mvc.enums.VIEWS;
  */
 @WebServlet(name = "ServiceSecurityLogout", urlPatterns = {"/SecurityLogout"})
 public class ServiceSecurityLogout extends HttpServlet {
+
+    private static final long serialVersionUID = -2393048063749590468L;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
