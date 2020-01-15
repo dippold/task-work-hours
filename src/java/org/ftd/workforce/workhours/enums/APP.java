@@ -15,7 +15,8 @@ public enum APP {
     PERSISTENCE_UNIT("TasksPU"),
     APP_NAME("Work Hours"), 
     CMD_HOME("HomeCmd"),
-    CMD_LOGOUT("LogOutCmd");
+    CMD_LOGOUT("LogOutCmd"),
+    CMD_SECURITY_LOGOUT("SecurityLogOutCmd");
     
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();

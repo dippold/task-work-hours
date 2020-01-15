@@ -25,8 +25,17 @@ public class SecurityManager {
     private SecurityManager() {        
     }
     
-    public void validate(HttpServletRequest req, RULES[] rule) {
+    public boolean validate(HttpServletRequest req, RULES[] rules) {
+        boolean validate = false;
+        int userRuleId = RULES.PROJECT_MANAGER.getId();
+        for (RULES rule : rules) {
+            if (rule.getId() == userRuleId) {
+                validate = true;
+                break;
+            }
+        }
         
+        return validate;
     }
     
 }
