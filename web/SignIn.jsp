@@ -34,7 +34,7 @@
             <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="dippold.br@gmail.com" required>
             <label for="inputPassword" class="sr-only">Senha</label>
             <input type="password" id="inputPassword" name="passwd" class="form-control" placeholder="Password" value="galateo2013" required>
-            <button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="submit">Autenticar</button>
+            <button id="btnSubmit" style="text-shadow: 0.1em 0.1em 0.2em black" class="btn btn-lg btn-primary btn-block" type="submit">Autenticar</button>
             <br>Copyright 2020 <i class="fas fa-award"></i> <i class="fab fa-java"></i>
             <br>By Software WorkForce
             <!-- DIV MENSAGEM -->
