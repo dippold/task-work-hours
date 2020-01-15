@@ -27,16 +27,19 @@ public class HomeCmd implements ICmd {
             throws ServletException, IOException {
         
         RULES[] rules = {
-            RULES.PROJECT_TEAM, 
-            RULES.PROJECT_MANAGER
+            RULES.PROJECT_TEAM,
+            RULES.PROJECT_MANAGER,
+            RULES.TASK_ADMIN,
+            RULES.PROJECT_STAKEHOLDER
         };        
-        
-        String nextCmd;
+                
         boolean securityValidade = SecurityManager.getInstance().validate(req, rules);
         
+        String nextCmd;
+        
         if (!securityValidade) {
-            req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE + this.getClass().getSimpleName());
-            nextCmd = APP.CMD_SECURITY_LOGOUT.getValue();            
+            req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE.getName() + this.getClass().getSimpleName());
+            nextCmd = APP.URL_SECURITY_LOGOUT.getValue();            
         } else {
             MenuService.getInstance().buildMenuModel(req);        
             nextCmd = VIEWS.HOME.getName();
