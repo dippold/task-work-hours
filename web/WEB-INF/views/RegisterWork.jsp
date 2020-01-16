@@ -55,7 +55,7 @@
                     <div class="form-group col-md-4">
                         <label for="emailInput">E-mail:</label>
                         <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">@</span>
+                            <span class="input-group-addon" id="basic-addon1"></span>
                             <input type="email" class="form-control" id="emailInput" name="emailInput" required="required" placeholder="Digite um e-mail"  aria-describedby="basic-addon1"
                                    value="${entity.email}">
                         </div>

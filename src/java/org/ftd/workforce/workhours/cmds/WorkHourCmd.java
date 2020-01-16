@@ -1,9 +1,12 @@
 package org.ftd.workforce.workhours.cmds;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.builderforce.tasks.persistence.enums.RULES;
+import org.ftd.workforce.workhours.adapters.IdName;
 import org.ftd.workforce.workhours.enums.APP;
 import org.ftd.workforce.workhours.services.MenuService;
 import org.softwareworkforce.web.mvc.abstracts.AbstractCmd;
@@ -58,8 +61,9 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
             req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE.getName() + this.getClass().getSimpleName());
             nextCmd = APP.URL_SECURITY_LOGOUT.getValue();            
         } else {
+            // MENU...
             MenuService.getInstance().buildMenuModel(req);
-            
+            // MVC...
             req.setAttribute("viewName", "Registrar horas trabalhadas");
             req.setAttribute("url",MVC.URL.getName());
             req.setAttribute(MVC.CMD.getName(), this.getClass().getSimpleName());
@@ -67,11 +71,16 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
             req.setAttribute(MVC.ID.getName(), "0");
             req.setAttribute(MVC.PID.getName(), "0");
             req.setAttribute(MVC.PPID.getName(), "0");
-            req.setAttribute(MVC.MSG.getName(), "");
-            
+            req.setAttribute(MVC.MSG.getName(), null);
+            // FORM...
             req.setAttribute("btnSubmitLabel","Registrar");
             req.setAttribute("btnCancelLabel","Cancelar");
             req.setAttribute("urlToCancel", buildUrl(APP.CMD_HOME.getValue(), MODEL.LST.getName()));
+            
+            
+            req.setAttribute("entity",null);
+            req.setAttribute("projects",findProjects(req));
+            
             
             nextCmd = "WEB-INF/views/RegisterWork.jsp";
         }
@@ -99,4 +108,16 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    // PRIVATE MEMBERS...    
+    private List<IdName> findProjects(HttpServletRequest req) {
+        List<IdName> lst = new ArrayList();
+        
+        lst.add(new IdName(1L,"Catalágo de Produtos"));
+        lst.add(new IdName(2L,"Propaga"));
+        lst.add(new IdName(3L,"Franquias"));
+        
+        return lst;
+    }
+    
+    
 }
