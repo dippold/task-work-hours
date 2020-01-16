@@ -3,6 +3,7 @@ package org.ftd.workforce.workhours.services;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.ftd.workforce.workhours.enums.APP;
+import org.softwareworkforce.web.mvc.enums.MODEL;
 import org.softwareworkforce.web.mvc.enums.MVC;
 
 /**
@@ -25,14 +26,12 @@ public class MenuService {
     } 
     
     public void buildMenuModel(HttpServletRequest req) {
-        
         req.setAttribute("appName", APP.APP_NAME.getValue());
         req.setAttribute("userName", getUserShortName(req));
         req.setAttribute("urlToLogout", MVC.URL.getName() + "?" + MVC.CMD.getName() + "=" + APP.CMD_LOGOUT.getValue());
         req.setAttribute("urlToHome", MVC.URL.getName() + "?" + MVC.CMD.getName() + "=" + APP.CMD_HOME.getValue());
-
-        req.setAttribute("urlToSimpleRegisterWork", "mvc?cmd=WorkHourCmd&do=bm-add");
-        
+        req.setAttribute("urlToSimpleRegisterWork", MVC.URL.getName() + "?" + MVC.CMD.getName() + "=WorkHourCmd&" + MVC.ACTION.getName() + "=" + MODEL.ADD.getName());
+        //req.setAttribute("urlToSimpleRegisterWork", "mvc?cmd=WorkHourCmd&do=bm-add");
     }
     
     private String getUserShortName(HttpServletRequest req) {

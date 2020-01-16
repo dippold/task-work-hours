@@ -13,19 +13,19 @@
         <div id="main" class="container-fluid">
 
             <div class="row">
-                <div class="col-md-6"><h2>${title}</h2></div>
+                <div class="col-md-6"><h2>${viewName}</h2></div>
             </div>
 
             <!-- FORM MAIN -->
-            <form id="formMain" name="formMain" method="POST" action="mvc">
-                
-                <!-- VARIAVEIS-DE-CONTROLE-MVC -->
-                <input type="hidden" id="model" name="model" value="${model}">
-                <input type="hidden" id="controller" name="controller" value="${controller}">
-                <input type="hidden" id="class" name="class" value="${controller}">
-                <input type="hidden" id="do" name="do" value="update">
-                <input type="hidden" id="id" name="id" value="${entity.id}">
-                <!-- /VARIAVEIS-DE-CONTROLE-MVC -->
+            <form id="frmMain" name="frmMain" method="POST" action="${url}">
+                <!-- MVC -->
+                <input type="hidden" id="url" name="url" value="${url}">
+                <input type="hidden" id="cmd" name="cmd" value="${cmd}">
+                <input type="hidden" id="task" name="task" value="${task}">
+                <input type="hidden" id="id" name="id" value="${id}">
+                <input type="hidden" id="pid" name="id" value="${pid}">
+                <input type="hidden" id="ppid" name="id" value="${ppid}">
+                <input type="hidden" id="msg" name="id" value="${msg}"><!-- /MVC -->
 
                 <!-- LINHA-1 -->
                 <div class="row">
@@ -111,8 +111,8 @@
                 <!-- LINHA-7 : BUTTONS SAVE AND CANCEL  (6 UNIDADES DE TELA)-->
                 <div class="row">
                     <div class="col-md-8">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                        <a href="mvc?class=${model}&do=list" class="btn btn-default">Cancelar</a>
+                        <button id="btnSubmit" style="text-shadow: 0.1em 0.1em 0.2em black" type="submit" class="btn btn-primary">${btnSubmitLabel}</button>
+                        <a id="btnCancel" href="${urlToCancel}" class="btn btn-primary">Cancelar</a>
                     </div>
                 </div><!-- /LINHA-7 -->
 
@@ -129,7 +129,15 @@
         <%@include file="../includes/JavaScriptCoreLibrariesInclude.jsp" %>       
         <script type="text/javascript">
             $(document).ready(function () {
-
+                
+                $("#frmMain").on("submit", function () {
+                    $("#btnSubmit").text("Processando . . .");
+                });
+                
+                $("#btnCancel").on("click", function () {
+                    $("#btnCancel").text("Processando . . .");
+                });                
+                
             });
         </script>
     </body>
