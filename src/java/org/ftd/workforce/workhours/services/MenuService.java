@@ -25,10 +25,14 @@ public class MenuService {
     } 
     
     public void buildMenuModel(HttpServletRequest req) {
+        
         req.setAttribute("appName", APP.APP_NAME.getValue());
         req.setAttribute("userName", getUserShortName(req));
         req.setAttribute("urlToLogout", MVC.URL.getName() + "?" + MVC.CMD.getName() + "=" + APP.CMD_LOGOUT.getValue());
-        req.setAttribute("urlToHome", MVC.URL.getName() + "?" + MVC.CMD.getName() + "=" + APP.CMD_HOME.getValue());        
+        req.setAttribute("urlToHome", MVC.URL.getName() + "?" + MVC.CMD.getName() + "=" + APP.CMD_HOME.getValue());
+
+        req.setAttribute("urlToSimpleRegisterWork", "mvc?cmd=WorkHourCmd&do=bm-add");
+        
     }
     
     private String getUserShortName(HttpServletRequest req) {

@@ -10,7 +10,7 @@
                         <a class="nav-link" style="text-shadow: 0.1em 0.1em 0.2em black" href="${urlToHome}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Apontar Trabalho</a>
+                        <a class="nav-link" href="${urlToSimpleRegisterWork}">Registrar trabalho</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
