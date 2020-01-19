@@ -11,7 +11,8 @@
         <%@include file="../includes/MenuInclude.jsp" %>
         <div class="container">
             <h3>Seja Bem-Vindo!</h3>
-            <p>Esse é um aplicativo simple e objetivo de apontamento de horas para equipes que executam tarefas em projetos.</p>
+            <p>Esse é um aplicativo simples e tem o objetivo de apontamento de horas para equipes que executam tarefas em projetos.</p>
+            <p>Fale com seu gerente de projetos para liberar as atividades para serem apontadas.</p>
         </div>
         <%@include file="../includes/JavaScriptCoreLibrariesInclude.jsp" %>       
         <script type="text/javascript">

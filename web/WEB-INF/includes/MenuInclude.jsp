@@ -1,5 +1,5 @@
 <!-- Document: MenuInclude: Created-on: 13/01/2020, Updated-on:15/01/2020, Author: Fabio Dippold, rev: 1.0.1 -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: 1px 1px 1px #999">
             <a class="navbar-brand" style="text-shadow: 0.1em 0.1em 0.2em black" href="#">${appName}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -12,14 +12,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${urlToSimpleRegisterWork}">Registrar trabalho</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" >
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gerenciar
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu" style="box-shadow: 1px 1px 1px #999" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Apontamentos</a>
                             <a class="dropdown-item" href="#">Projetos</a>
-                            <!-- <div class="dropdown-divider"></div> -->
+                            <div class="dropdown-divider" style="box-shadow: 1px 1px 1px #999"></div>
                             <a class="dropdown-item" href="#">Atividades</a>
                         </div>
                     </li>
@@ -28,7 +28,7 @@
                     </li>
                 </ul>
                 <form id="frmLogout" method="post" action="${urlToLogout}">
-                    <button id="btnLogout" class="btn btn-primary my-2 my-sm-0" style="text-shadow: 0.1em 0.1em 0.2em black" type="submit">Sair</button>
+                    <button id="btnLogout" class="btn btn-primary my-2 my-sm-0" style="text-shadow: 0.1em 0.1em 0.2em black; box-shadow: 1px 1px 1px #999" type="submit">Sair</button>
                 </form>  
                 <!--  
                 <form class="form-inline my-2 my-lg-0">

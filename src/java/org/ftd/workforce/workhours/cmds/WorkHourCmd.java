@@ -14,7 +14,6 @@ import org.softwareworkforce.web.mvc.enums.CRUD;
 import org.softwareworkforce.web.mvc.enums.MODEL;
 import org.softwareworkforce.web.mvc.enums.MSGS;
 import org.softwareworkforce.web.mvc.enums.MVC;
-import org.softwareworkforce.web.mvc.enums.VIEWS;
 import org.softwareworkforce.web.mvc.interfaces.ICmd;
 
 /**
@@ -64,7 +63,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
             // MENU...
             MenuService.getInstance().buildMenuModel(req);
             // MVC...
-            req.setAttribute("viewName", "Registrar horas trabalhadas");
+            req.setAttribute("viewName", "Registrar trabalho");
             req.setAttribute("url",MVC.URL.getName());
             req.setAttribute(MVC.CMD.getName(), this.getClass().getSimpleName());
             req.setAttribute(MVC.ACTION.getName(), CRUD.ADD.getName());
@@ -76,11 +75,10 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
             req.setAttribute("btnSubmitLabel","Registrar");
             req.setAttribute("btnCancelLabel","Cancelar");
             req.setAttribute("urlToCancel", buildUrl(APP.CMD_HOME.getValue(), MODEL.LST.getName()));
-            
-            
+            // DATASOURCES...            
             req.setAttribute("entity",null);
             req.setAttribute("projects",findProjects(req));
-            
+            req.setAttribute("activities",findActivities(req,null));            
             
             nextCmd = "WEB-INF/views/RegisterWork.jsp";
         }
@@ -118,6 +116,21 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         
         return lst;
     }
+    
+        // PRIVATE MEMBERS...    
+    private List<IdName> findActivities(HttpServletRequest req, Long projectId) {
+        List<IdName> lst = new ArrayList();                
+        
+        lst.add(new IdName(1L,"Atividade-1"));
+        lst.add(new IdName(2L,"Atividade-2"));
+        lst.add(new IdName(3L,"Atividade-3"));
+        lst.add(new IdName(4L,"Atividade-4"));
+        lst.add(new IdName(5L,"Atividade-5"));
+        lst.add(new IdName(6L,"Atividade-6"));        
+        
+        return lst;
+    }
+    
     
     
 }

@@ -29,25 +29,40 @@
 
                 <!-- LINHA-1 -->
                 <div class="row">
-                    
+
                     <div class="form-group col-md-4">
                         <label for="comboProject">Projeto:</label>
-                        <SELECT id="comboProject" name="comboProject" size="1"  required="required" class="form-control">
+                        <SELECT id="comboProject" name="comboProject" size="1"  required="required" class="form-control" style="box-shadow: 1px 1px 1px #999;">
                             <c:forEach var="o" items="${projects}">
-                                <option value="${o.id}" ${entity.projectId == o.projectId ? 'selected' : ''}>${o.name}</option>
+                                <c:choose>
+                                    <c:when test="${entity == null}"><!-- if condition -->
+                                        <option value="${o.id}">${o.name}</option>
+                                    </c:when> 
+                                    <c:otherwise><!-- else condition -->
+                                        <option value="${o.id}" ${entity.projectId == o.projectId ? 'selected' : ''}>${o.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>                                  
                         </SELECT>                     
                     </div>
-                    
+
                     <div class="form-group col-md-4">
                         <label for="comboActivity">Atividade:</label>
-                        <SELECT id="comboActivity" name="comboActivity" size="1"  required="required" class="form-control">
+                        <SELECT id="comboActivity" name="comboActivity" size="1"  required="required" class="form-control" style="box-shadow: 1px 1px 1px #999;">
                             <c:forEach var="o" items="${activities}">
-                                <option value="${o.id}" ${entity.acticityId == o.activityid ? 'selected' : ''}>${o.name}</option>
+                                <c:choose>
+                                    <c:when test="${entity == null}"><!-- if condition -->
+                                        <option value="${o.id}">${o.name}</option>
+                                    </c:when> 
+                                    <c:otherwise><!-- else condition -->
+                                        <option value="${o.id}" ${entity.acticityId == o.activityid ? 'selected' : ''}>${o.name}</option>
+                                    </c:otherwise>
+                                </c:choose>                                
+
                             </c:forEach>                                  
                         </SELECT>                     
                     </div>                    
-                    
+
                 </div><!-- /LINHA-1 -->                
 
                 <!-- LINHA-2 (8 UNIDADES DE TELA) -->
@@ -70,12 +85,9 @@
                 <!-- LINHA-3 (8 UNIDADES DE TELA) -->
                 <div class="row">
                     <div class="form-group col-md-4">
-                        <label for="profileIdsInput">Perfis IDs:</label>
-                        <input type="text" class="form-control" id="profileIdsInput" name="profileIdsInput" required="required" max="50" placeholder="Classe Model"
-                               value="${entity.profileIds}">
-                        <span id="contadorProfileIdsInput" class="label label-warning">50 Restantes!</span>
-                        <img src="assets/images/loading/loading19.gif" id="loading-indicator" style="display:none" alt=""/> 
-                        <span id="profileNamesSpan" class="label label-info"></span>
+                        <label for="descriptionInput">Observações:</label>
+                        <textarea class="form-control"  style="box-shadow: 1px 1px 1px #999;" id="descriptionInput" name="descriptionInput" placeholder="Colque suas observações de progresso ou impedimentos" maxlength="255" rows="4"></textarea>                       
+                        <span id="counterDescriptionInput" class="label label-warning" style="color: #0099ff;font-size: 11px; text-shadow: 0.1em 0.1em 0.2em black">255 Restantes!</span>
                     </div>
 
                     <div class="form-group col-md-2">
@@ -111,8 +123,8 @@
                 <!-- LINHA-7 : BUTTONS SAVE AND CANCEL  (6 UNIDADES DE TELA)-->
                 <div class="row">
                     <div class="col-md-8">
-                        <button id="btnSubmit" style="text-shadow: 0.1em 0.1em 0.2em black" type="submit" class="btn btn-primary">${btnSubmitLabel}</button>
-                        <a id="btnCancel" href="${urlToCancel}" class="btn btn-primary">Cancelar</a>
+                        <button id="btnSubmit" class="btn btn-primary" style="text-shadow: 0.1em 0.1em 0.2em black; box-shadow: 1px 1px 1px #999" type="submit" >${btnSubmitLabel}</button>
+                        <a id="btnCancel" href="${urlToCancel}" class="btn btn-primary" style="text-shadow: 0.1em 0.1em 0.2em black; box-shadow: 1px 1px 1px #999">Cancelar</a>
                     </div>
                 </div><!-- /LINHA-7 -->
 
@@ -129,15 +141,24 @@
         <%@include file="../includes/JavaScriptCoreLibrariesInclude.jsp" %>       
         <script type="text/javascript">
             $(document).ready(function () {
-                
+
                 $("#frmMain").on("submit", function () {
                     $("#btnSubmit").text("Processando . . .");
                 });
-                
+
                 $("#btnCancel").on("click", function () {
                     $("#btnCancel").text("Processando . . .");
-                });                
-                
+                });
+
+                $("#descriptionInput").keyup(
+                        function () {
+                            var limite = 255;
+                            var caracteresDigitados = $(this).val().length;
+                            var caracteresRestantes = limite - caracteresDigitados;
+                            $("#counterDescriptionInput").text(caracteresRestantes + " Restantes!");
+                        }
+                );
+
             });
         </script>
     </body>

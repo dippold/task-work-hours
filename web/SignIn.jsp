@@ -22,11 +22,11 @@
         <form id="frmLogin" class="form-signin" method="POST" action="signin">
             <h2 id="appName">Work Hours App</h2>
             <h4 id="title">Autenticação</h4>
-            <label for="inputEmail" class="sr-only">E-mail</label>
-            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="dippold.br@gmail.com" required>
-            <label for="inputPassword" class="sr-only">Senha</label>
-            <input type="password" id="inputPassword" name="passwd" class="form-control" placeholder="Password" value="galateo2013" required>
-            <button id="btnSubmit" style="text-shadow: 0.1em 0.1em 0.2em black" class="btn btn-lg btn-primary btn-block" type="submit">Autenticar</button>
+            <br>
+            <input type="email" id="inputEmail" name="email" class="form-control" style="box-shadow: 1px 1px 1px #999" placeholder="Email address" value="dippold.br@gmail.com" required>
+            <input type="password" id="inputPassword" name="passwd" class="form-control" style="box-shadow: 1px 1px 1px #999" placeholder="Password" value="galateo2013" required>
+            <br>
+            <button id="btnSubmit" class="btn btn-lg btn-primary btn-block" style="text-shadow: 0.1em 0.1em 0.2em black; box-shadow: 1px 1px 1px #999" type="submit">Autenticar</button>
             <br>Copyright 2020 <i class="fas fa-award"></i> <i class="fab fa-java"></i>
             <br>By Software WorkForce
             <!-- DIV MENSAGEM -->
