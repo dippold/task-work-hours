@@ -104,7 +104,8 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
     // PRIVATE MEMBERS...    
     private List<IdName> findProjects(HttpServletRequest req) {
         List<IdName> lst = new ArrayList();
-
+        
+        lst.add(new IdName(null, null));
         lst.add(new IdName(1L, "Catalágo de Produtos"));
         lst.add(new IdName(2L, "Propaga"));
         lst.add(new IdName(3L, "Franquias"));
@@ -116,6 +117,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
     private List<IdName> findActivities(HttpServletRequest req, Long projectId) {
         List<IdName> lst = new ArrayList();
 
+        lst.add(new IdName(null, null));
         lst.add(new IdName(1L, "Atividade-1"));
         lst.add(new IdName(2L, "Atividade-2"));
         lst.add(new IdName(3L, "Atividade-3"));
