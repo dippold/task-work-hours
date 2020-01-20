@@ -32,7 +32,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
     };
 
     @Override
-    protected boolean __securityValidate(HttpServletRequest req) {        
+    protected boolean __securityValidate(HttpServletRequest req) {
         return SecurityManager.getInstance().validate(req, permissions);
     }
 
@@ -53,37 +53,32 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
 
     @Override
     protected String __addBuildModel(HttpServletRequest req, HttpServletResponse res) {
-        MenuService.getInstance().buildMenuModel(req); 
-        boolean securityValidate = SecurityManager.getInstance().validate(req, permissions);        
-        String nextCmd;        
-        if (!securityValidate) {
-            req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE.getName() + this.getClass().getSimpleName());
-            nextCmd = APP.URL_SECURITY_LOGOUT.getValue();            
-        } else {
-            // MENU...
-            MenuService.getInstance().buildMenuModel(req);
-            // MVC...
-            req.setAttribute("viewName", "Registrar trabalho");
-            req.setAttribute("url",MVC.URL.getName());
-            req.setAttribute(MVC.CMD.getName(), this.getClass().getSimpleName());
-            req.setAttribute(MVC.ACTION.getName(), CRUD.ADD.getName());
-            req.setAttribute(MVC.ID.getName(), "0");
-            req.setAttribute(MVC.PID.getName(), "0");
-            req.setAttribute(MVC.PPID.getName(), "0");
-            req.setAttribute(MVC.MSG.getName(), null);
-            // FORM...
-            req.setAttribute("btnSubmitLabel","Registrar");
-            req.setAttribute("btnCancelLabel","Cancelar");
-            req.setAttribute("urlToCancel", buildUrl(APP.CMD_HOME.getValue(), MODEL.LST.getName()));
-            // DATASOURCES...            
-            req.setAttribute("entity",null);
-            req.setAttribute("projects",findProjects(req));
-            req.setAttribute("activities",findActivities(req,null));            
-            
-            nextCmd = "WEB-INF/views/RegisterWork.jsp";
-        }
+        // MENU...
+        MenuService.getInstance().buildMenuModel(req);
+        //VIEW...
+        String nextCmd = "WEB-INF/views/RegisterWork.jsp";
+        // MVC...
+        req.setAttribute("viewName", "Registrar trabalho");
+        //req.setAttribute("url", MVC.URL.getName());
+        req.setAttribute("url", "show");
+        req.setAttribute(MVC.CMD.getName(), this.getClass().getSimpleName());
+        req.setAttribute(MVC.ACTION.getName(), CRUD.ADD.getName());
+        req.setAttribute(MVC.ID.getName(), "0");
+        req.setAttribute(MVC.PID.getName(), "0");
+        req.setAttribute(MVC.PPID.getName(), "0");
+        req.setAttribute(MVC.MSG.getName(), null);
+        // FORM...
+        req.setAttribute("btnSubmitLabel", "Registrar");
+        req.setAttribute("btnCancelLabel", "Cancelar");
+        req.setAttribute("urlToCancel", buildUrl(APP.CMD_HOME.getValue(), MODEL.LST.getName()));
+        // DATASOURCES...            
+        req.setAttribute("entity", null);
+        req.setAttribute("projects", findProjects(req));
+        req.setAttribute("activities", findActivities(req, null));
+        req.setAttribute("completeness", getCompletenessRange(req));
+        req.setAttribute("workhoursday", getWorkHoursDayRange(req));
         
-        return nextCmd;        
+        return nextCmd;
     }
 
     @Override
@@ -109,28 +104,59 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
     // PRIVATE MEMBERS...    
     private List<IdName> findProjects(HttpServletRequest req) {
         List<IdName> lst = new ArrayList();
-        
-        lst.add(new IdName(1L,"Catalágo de Produtos"));
-        lst.add(new IdName(2L,"Propaga"));
-        lst.add(new IdName(3L,"Franquias"));
-        
+
+        lst.add(new IdName(1L, "Catalágo de Produtos"));
+        lst.add(new IdName(2L, "Propaga"));
+        lst.add(new IdName(3L, "Franquias"));
+
         return lst;
     }
-    
-        // PRIVATE MEMBERS...    
+
+    // PRIVATE MEMBERS...    
     private List<IdName> findActivities(HttpServletRequest req, Long projectId) {
-        List<IdName> lst = new ArrayList();                
-        
-        lst.add(new IdName(1L,"Atividade-1"));
-        lst.add(new IdName(2L,"Atividade-2"));
-        lst.add(new IdName(3L,"Atividade-3"));
-        lst.add(new IdName(4L,"Atividade-4"));
-        lst.add(new IdName(5L,"Atividade-5"));
-        lst.add(new IdName(6L,"Atividade-6"));        
-        
+        List<IdName> lst = new ArrayList();
+
+        lst.add(new IdName(1L, "Atividade-1"));
+        lst.add(new IdName(2L, "Atividade-2"));
+        lst.add(new IdName(3L, "Atividade-3"));
+        lst.add(new IdName(4L, "Atividade-4"));
+        lst.add(new IdName(5L, "Atividade-5"));
+        lst.add(new IdName(6L, "Atividade-6"));
+
         return lst;
     }
-    
-    
+
+    // PRIVATE MEMBERS...    
+    private List<IdName> getCompletenessRange(HttpServletRequest req) {
+        List<IdName> lst = new ArrayList();
+
+        lst.add(new IdName(0L, "0%"));
+        lst.add(new IdName(25L, "25%"));
+        lst.add(new IdName(50L, "50%"));
+        lst.add(new IdName(75L, "75%"));
+        lst.add(new IdName(100L, "100%"));
+
+        return lst;
+    }    
+
+    // PRIVATE MEMBERS...    
+    private List<IdName> getWorkHoursDayRange(HttpServletRequest req) {
+        List<IdName> lst = new ArrayList();
+
+        lst.add(new IdName(1L, "1"));
+        lst.add(new IdName(2L, "2"));
+        lst.add(new IdName(3L, "3"));
+        lst.add(new IdName(4L, "4"));
+        lst.add(new IdName(5L, "5"));
+        lst.add(new IdName(6L, "6"));
+        lst.add(new IdName(7L, "7"));
+        lst.add(new IdName(8L, "8"));
+        lst.add(new IdName(9L, "9"));
+        lst.add(new IdName(10L, "10")); 
+        lst.add(new IdName(11L, "11")); 
+        lst.add(new IdName(12L, "12")); 
+        
+        return lst;
+    } 
     
 }
