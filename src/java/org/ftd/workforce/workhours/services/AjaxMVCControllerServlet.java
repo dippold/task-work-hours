@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 @WebServlet(name = "AjaxMVCControllerServlet", urlPatterns = {"/ajax"}, initParams = {
-    @WebInitParam(name = "mvcAjaxObjectPackage", value = "org.ftd.builderforce.easyservice.web.mvc.ajax")
+    @WebInitParam(name = "mvcAjaxObjectPackage", value = "org.ftd.workforce.workhours.cmds.ajax")
 })
 public class AjaxMVCControllerServlet extends HttpServlet {
 

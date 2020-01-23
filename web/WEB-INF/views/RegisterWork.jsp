@@ -39,7 +39,6 @@
                 <input type="hidden" id="ppid" name="ppid" value="${ppid}">
                 <input type="hidden" id="msg" name="msg" value="${msg}">
                 <!-- /MVC -->
-
                 <!-- LINHA-1 -->
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -62,7 +61,7 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="comboActivity">Atividade:</label>
-                        <span id="spanUpdateComboActivity" class="label label-warning fa-blink" style="color: red;font-size: 11px; text-shadow: 0.1em 0.1em 0.2em black">Processando...</span>
+                        <span id="spanUpdateComboActivity" class="label label-warning fa-blink" style="display: none; color: red;font-size: 11px; text-shadow: 0.1em 0.1em 0.2em black">Processando...</span>
                         <SELECT id="comboActivity" name="comboActivity" size="1"  required="required" class="form-control" style="box-shadow: 1px 1px 1px #999;">
                             <c:forEach var="o" items="${activities}">
                                 <c:choose>
@@ -137,9 +136,13 @@
             <jsp:include page="../includes/MessageBarInclude.jsp" />
         </div> <!--/MAIN CONTAINER --> 
         <%@include file="../includes/JavaScriptCoreLibrariesInclude.jsp" %>       
-        <script type="text/javascript">
+        <script type="text/javascript">           
             $(document).ready(function () {
-
+                
+                var updateActivities = function (result) {
+                    $("#spanUpdateComboActivity").hide();
+                };
+                
                 $("#frmMain").on("submit", function () {
                     $("#btnSubmit").text("Processando . . .");
                 });
@@ -156,6 +159,34 @@
                             $("#counterDescriptionInput").text(caracteresRestantes + " Restantes!");
                         }
                 );
+
+                $("comboProject").change()(function () {
+                    var service = "task";
+                    var url = "${urlSrv}" + "/" + service;
+                    var action = "findActivities";
+                    var parameters = "task=" + action + "&id=" + $(this).val();
+                    
+                    $.ajax({ 
+                        type: "POST",
+                        url: url,
+                        data: parameters,
+                        async: false,
+                        beforeSend: function () {
+                            $("#spanUpdateComboActivity").text("Enviando...");
+                            $("#spanUpdateComboActivity").show();
+                        },
+                        success: function (result) {
+                            $("#spanUpdateComboActivity").text("Processando...");
+                            updateActivities(result);
+                        },
+                        error: function () {
+                            alert('Ocorreu um erro em chamada ajax!');
+                            $("#spanUpdateComboActivity").hide();
+                        }
+                    });
+                    
+                });
+
 
             });
         </script>

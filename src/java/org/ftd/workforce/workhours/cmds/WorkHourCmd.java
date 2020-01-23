@@ -12,7 +12,6 @@ import org.ftd.workforce.workhours.services.MenuService;
 import org.softwareworkforce.web.mvc.abstracts.AbstractCmd;
 import org.softwareworkforce.web.mvc.enums.CRUD;
 import org.softwareworkforce.web.mvc.enums.MODEL;
-import org.softwareworkforce.web.mvc.enums.MSGS;
 import org.softwareworkforce.web.mvc.enums.MVC;
 import org.softwareworkforce.web.mvc.interfaces.ICmd;
 
@@ -61,6 +60,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         req.setAttribute("viewName", "Registrar trabalho");
         //req.setAttribute("url", MVC.URL.getName());
         req.setAttribute("url", "show");
+        req.setAttribute("urlSrv", MVC.URL_SRV.getName());
         req.setAttribute(MVC.CMD.getName(), this.getClass().getSimpleName());
         req.setAttribute(MVC.ACTION.getName(), CRUD.ADD.getName());
         req.setAttribute(MVC.ID.getName(), "0");
