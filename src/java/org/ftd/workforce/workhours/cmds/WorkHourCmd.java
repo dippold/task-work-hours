@@ -24,7 +24,7 @@ import org.softwareworkforce.web.mvc.interfaces.ICmd;
  */
 public class WorkHourCmd extends AbstractCmd implements ICmd {
 
-    public static final RULES[] permissions = {
+    public static final RULES[] PERMISSIONS = {
         RULES.PROJECT_TEAM,
         RULES.PROJECT_MANAGER,
         RULES.TASK_ADMIN
@@ -32,7 +32,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
 
     @Override
     protected boolean __securityValidate(HttpServletRequest req) {
-        return SecurityManager.getInstance().validate(req, permissions);
+        return SecurityManager.getInstance().validate(req, PERMISSIONS);
     }
 
     @Override
