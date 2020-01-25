@@ -7,11 +7,11 @@ package org.ftd.workforce.workhours.adapters;
  * @since 2020-1-15
  *
  */
-public class IdName {
+public class IdNameAdapter {
     private final Long id;
     private final String name;
 
-    public IdName(Long id, String name) {
+    public IdNameAdapter(Long id, String name) {
         this.id = id;
         this.name = name;
     }

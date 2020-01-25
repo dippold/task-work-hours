@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.builderforce.tasks.persistence.enums.RULES;
-import org.ftd.workforce.workhours.adapters.IdName;
+import org.ftd.workforce.workhours.adapters.IdNameAdapter;
 import org.ftd.workforce.workhours.enums.APP;
 import org.ftd.workforce.workhours.services.MenuService;
 import org.softwareworkforce.web.mvc.abstracts.AbstractCmd;
@@ -58,70 +58,77 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         req.setAttribute("urlToCancel", buildUrl(APP.CMD_HOME.getValue(), MODEL.LST.getName()));
         // DATASOURCES...            
         req.setAttribute("entity", null);
-        req.setAttribute("projects", findProjects(req));
-        req.setAttribute("activities", null);
+        req.setAttribute("projects", findProjects(req));        
         req.setAttribute("completeness", getCompletenessRange(req));
-        req.setAttribute("workhoursday", getWorkHoursDayRange(req));
+        req.setAttribute("workhoursday", getWorkHoursDayRange(req));        
+        
+        String projectId = readParameter(req, "comboProject", null);
+        if (projectId != null) {
+            req.setAttribute("projectId", projectId);
+            req.setAttribute("activities", findActivities(req, Long.parseLong(projectId)));
+        } else {
+            req.setAttribute("activities", null);
+        }
         
         return nextCmd;
     }
 
     // PRIVATE MEMBERS...    
-    private List<IdName> findProjects(HttpServletRequest req) {
-        List<IdName> lst = new ArrayList();
+    private List<IdNameAdapter> findProjects(HttpServletRequest req) {
+        List<IdNameAdapter> lst = new ArrayList();
         
-        lst.add(new IdName(null, null));
-        lst.add(new IdName(1L, "Catalágo de Produtos"));
-        lst.add(new IdName(2L, "Propaga"));
-        lst.add(new IdName(3L, "Franquias"));
+        lst.add(new IdNameAdapter(null, null));
+        lst.add(new IdNameAdapter(1L, "Catalágo de Produtos"));
+        lst.add(new IdNameAdapter(2L, "Propaga"));
+        lst.add(new IdNameAdapter(3L, "Franquias"));
 
         return lst;
     }
 
     // PRIVATE MEMBERS...    
-    private List<IdName> findActivities(HttpServletRequest req, Long projectId) {
-        List<IdName> lst = new ArrayList();
+    private List<IdNameAdapter> findActivities(HttpServletRequest req, Long projectId) {
+        List<IdNameAdapter> lst = new ArrayList();
 
-        lst.add(new IdName(null, null));
-        lst.add(new IdName(1L, "Atividade-1"));
-        lst.add(new IdName(2L, "Atividade-2"));
-        lst.add(new IdName(3L, "Atividade-3"));
-        lst.add(new IdName(4L, "Atividade-4"));
-        lst.add(new IdName(5L, "Atividade-5"));
-        lst.add(new IdName(6L, "Atividade-6"));
+        lst.add(new IdNameAdapter(null, null));
+        lst.add(new IdNameAdapter(1L, "Atividade-1"));
+        lst.add(new IdNameAdapter(2L, "Atividade-2"));
+        lst.add(new IdNameAdapter(3L, "Atividade-3"));
+        lst.add(new IdNameAdapter(4L, "Atividade-4"));
+        lst.add(new IdNameAdapter(5L, "Atividade-5"));
+        lst.add(new IdNameAdapter(6L, "Atividade-6"));
 
         return lst;
     }
 
     // PRIVATE MEMBERS...    
-    private List<IdName> getCompletenessRange(HttpServletRequest req) {
-        List<IdName> lst = new ArrayList();
+    private List<IdNameAdapter> getCompletenessRange(HttpServletRequest req) {
+        List<IdNameAdapter> lst = new ArrayList();
 
-        lst.add(new IdName(0L, "0%"));
-        lst.add(new IdName(25L, "25%"));
-        lst.add(new IdName(50L, "50%"));
-        lst.add(new IdName(75L, "75%"));
-        lst.add(new IdName(100L, "100%"));
+        lst.add(new IdNameAdapter(0L, "0%"));
+        lst.add(new IdNameAdapter(25L, "25%"));
+        lst.add(new IdNameAdapter(50L, "50%"));
+        lst.add(new IdNameAdapter(75L, "75%"));
+        lst.add(new IdNameAdapter(100L, "100%"));
 
         return lst;
     }    
 
     // PRIVATE MEMBERS...    
-    private List<IdName> getWorkHoursDayRange(HttpServletRequest req) {
-        List<IdName> lst = new ArrayList();
+    private List<IdNameAdapter> getWorkHoursDayRange(HttpServletRequest req) {
+        List<IdNameAdapter> lst = new ArrayList();
 
-        lst.add(new IdName(1L, "1"));
-        lst.add(new IdName(2L, "2"));
-        lst.add(new IdName(3L, "3"));
-        lst.add(new IdName(4L, "4"));
-        lst.add(new IdName(5L, "5"));
-        lst.add(new IdName(6L, "6"));
-        lst.add(new IdName(7L, "7"));
-        lst.add(new IdName(8L, "8"));
-        lst.add(new IdName(9L, "9"));
-        lst.add(new IdName(10L, "10")); 
-        lst.add(new IdName(11L, "11")); 
-        lst.add(new IdName(12L, "12")); 
+        lst.add(new IdNameAdapter(1L, "1"));
+        lst.add(new IdNameAdapter(2L, "2"));
+        lst.add(new IdNameAdapter(3L, "3"));
+        lst.add(new IdNameAdapter(4L, "4"));
+        lst.add(new IdNameAdapter(5L, "5"));
+        lst.add(new IdNameAdapter(6L, "6"));
+        lst.add(new IdNameAdapter(7L, "7"));
+        lst.add(new IdNameAdapter(8L, "8"));
+        lst.add(new IdNameAdapter(9L, "9"));
+        lst.add(new IdNameAdapter(10L, "10")); 
+        lst.add(new IdNameAdapter(11L, "11")); 
+        lst.add(new IdNameAdapter(12L, "12")); 
         
         return lst;
     } 

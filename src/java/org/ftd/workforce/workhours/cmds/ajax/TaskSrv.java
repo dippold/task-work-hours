@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.builderforce.tasks.persistence.enums.RULES;
-import org.ftd.workforce.workhours.adapters.IdName;
+import org.ftd.workforce.workhours.adapters.IdNameAdapter;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.softwareworkforce.web.mvc.abstracts.AbstractAjaxService;
 import org.softwareworkforce.web.mvc.interfaces.IAjaxService;
@@ -34,14 +34,14 @@ public class TaskSrv extends AbstractAjaxService implements IAjaxService {
     }    
 
     public void find(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        List<IdName> lst = new ArrayList();
-        lst.add(new IdName(null, null));
-        lst.add(new IdName(1L, "Atividade-1"));
-        lst.add(new IdName(2L, "Atividade-2"));
-        lst.add(new IdName(3L, "Atividade-3"));
-        lst.add(new IdName(4L, "Atividade-4"));
-        lst.add(new IdName(5L, "Atividade-5"));
-        lst.add(new IdName(6L, "Atividade-6"));
+        List<IdNameAdapter> lst = new ArrayList();
+        lst.add(new IdNameAdapter(null, null));
+        lst.add(new IdNameAdapter(1L, "Atividade-1"));
+        lst.add(new IdNameAdapter(2L, "Atividade-2"));
+        lst.add(new IdNameAdapter(3L, "Atividade-3"));
+        lst.add(new IdNameAdapter(4L, "Atividade-4"));
+        lst.add(new IdNameAdapter(5L, "Atividade-5"));
+        lst.add(new IdNameAdapter(6L, "Atividade-6"));
         
         Result result = new Result();
         result.setData(lst);

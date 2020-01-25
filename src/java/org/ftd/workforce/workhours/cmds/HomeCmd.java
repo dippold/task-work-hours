@@ -1,13 +1,23 @@
 package org.ftd.workforce.workhours.cmds;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.builderforce.tasks.persistence.daos.ProjectDAO;
+import org.builderforce.tasks.persistence.daos.UserProjectDAO;
+import org.builderforce.tasks.persistence.entities.Project;
+import org.builderforce.tasks.persistence.entities.UserProject;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.builderforce.tasks.persistence.enums.RULES;
+import org.ftd.workforce.workhours.adapters.IdNameAdapter;
 import org.ftd.workforce.workhours.enums.APP;
 import org.ftd.workforce.workhours.services.MenuService;
+import org.softwareworkforce.web.mvc.abstracts.AbstractCmd;
 import org.softwareworkforce.web.mvc.enums.MSGS;
 import org.softwareworkforce.web.mvc.enums.MVC;
 import org.softwareworkforce.web.mvc.enums.VIEWS;
@@ -44,10 +54,30 @@ public class HomeCmd implements ICmd {
             nextCmd = APP.URL_SECURITY_LOGOUT.getValue();
         } else {
             MenuService.getInstance().buildMenuModel(req);
+            req.setAttribute("userProjects", findUserProjects(Long.parseLong(AbstractCmd.getSessionValue(req, "userId"))));
             nextCmd = VIEWS.HOME.getName();
         }
 
         return nextCmd;
+    }
+
+    private List<IdNameAdapter> findUserProjects(Long userId) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(APP.PERSISTENCE_UNIT.getValue());
+        ProjectDAO projectDAO = new ProjectDAO(factory);
+        UserProjectDAO userProjectDAO = new UserProjectDAO(factory);
+        List<UserProject> userProjects = userProjectDAO.findProjects(userId);
+        List<IdNameAdapter> lst = new ArrayList<>();
+
+//        for (UserProject o:userProjects) {
+//            Project p = projectDAO.findProject(o.getProjectId());
+//            lst.add(new IdNameAdapter(o.getProjectId(), p.getName()));
+//        }
+        userProjects.forEach((o) -> {
+            Project p = projectDAO.findProject(o.getProjectId());
+            lst.add(new IdNameAdapter(o.getProjectId(), p.getName()));
+        });
+
+        return lst;
     }
 
 }
