@@ -22,29 +22,32 @@ import org.softwareworkforce.web.mvc.interfaces.ICmd;
  */
 public class HomeCmd implements ICmd {
 
+    public static final RULES[] PERMISSIONS = {
+        RULES.PROJECT_TEAM,
+        RULES.PROJECT_MANAGER,
+        RULES.TASK_ADMIN,
+        RULES.PROJECT_STAKEHOLDER
+    };
+
+    @Override
+    public boolean securityValidated(HttpServletRequest req) {
+        return SecurityManager.getInstance().validate(req, PERMISSIONS);
+    }
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        
-        RULES[] rules = {
-            RULES.PROJECT_TEAM,
-            RULES.PROJECT_MANAGER,
-            RULES.TASK_ADMIN,
-            RULES.PROJECT_STAKEHOLDER
-        };
-        
-        boolean securityValidate = SecurityManager.getInstance().validate(req, rules);
-        
-        String nextCmd;        
-        if (!securityValidate) {
+
+        String nextCmd;
+        if (!securityValidated(req)) {
             req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE.getName() + this.getClass().getSimpleName());
-            nextCmd = APP.URL_SECURITY_LOGOUT.getValue();            
+            nextCmd = APP.URL_SECURITY_LOGOUT.getValue();
         } else {
-            MenuService.getInstance().buildMenuModel(req);        
+            MenuService.getInstance().buildMenuModel(req);
             nextCmd = VIEWS.HOME.getName();
         }
-        
+
         return nextCmd;
     }
-    
+
 }

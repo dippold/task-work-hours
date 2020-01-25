@@ -10,8 +10,6 @@ import org.builderforce.tasks.persistence.enums.RULES;
 import org.ftd.workforce.workhours.adapters.IdName;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.softwareworkforce.web.mvc.abstracts.AbstractAjaxService;
-import org.softwareworkforce.web.mvc.abstracts.AbstractCmd;
-import org.softwareworkforce.web.mvc.enums.MVC;
 import org.softwareworkforce.web.mvc.interfaces.IAjaxService;
 import org.softwareworkforce.web.mvc.results.Result;
 
@@ -31,30 +29,11 @@ public class TaskSrv extends AbstractAjaxService implements IAjaxService {
     };
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public boolean securityValidated(HttpServletRequest req) {
+        return SecurityManager.getInstance().validate(req, PERMISSIONS);
+    }    
 
-        if (!SecurityManager.getInstance().validate(req, PERMISSIONS)) {
-
-            Result result = new Result();
-            result.setSuccess(false);
-            result.addError("0", "Sem permissão para acessar a url=/ajax/" + this.getClass().getSimpleName());
-            AbstractAjaxService.doResponseJson(res, result);
-
-        } else {
-            String action = AbstractCmd.readParameter(req, MVC.ACTION.getName());
-            switch (action) {
-                case "find":
-                    __find(req, res);
-                    break;
-                default:
-                    AbstractAjaxService.notFoundAction(req, res, action);
-                    break;
-            }
-        }
-
-    }
-
-    private void __find(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void find(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         List<IdName> lst = new ArrayList();
         lst.add(new IdName(null, null));
         lst.add(new IdName(1L, "Atividade-1"));
@@ -68,4 +47,6 @@ public class TaskSrv extends AbstractAjaxService implements IAjaxService {
         result.setData(lst);
         AbstractAjaxService.doResponseJson(res, result);
     }
+
+
 }

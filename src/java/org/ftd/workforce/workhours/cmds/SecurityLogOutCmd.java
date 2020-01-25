@@ -21,13 +21,20 @@ public class SecurityLogOutCmd implements ICmd {
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String nextCmd = VIEWS.LOGIN.getName();
 
-        HttpSession session = req.getSession(false);        
-        session.removeAttribute("userId");
-        session.removeAttribute("userName");
-        session.removeAttribute("userRuleId");
-        session.invalidate();
-        
+        HttpSession session = req.getSession(false);
+        if (session != null) {
+            session.removeAttribute("userId");
+            session.removeAttribute("userName");
+            session.removeAttribute("userRuleId");
+            session.invalidate();
+        }
+
         return nextCmd;
     }
-    
+
+    @Override
+    public boolean securityValidated(HttpServletRequest req) {
+        return true;
+    }
+
 }

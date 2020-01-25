@@ -135,14 +135,15 @@
             </form><!-- /FORM MAIN -->
             <jsp:include page="../includes/MessageBarInclude.jsp" />
         </div> <!--/MAIN CONTAINER --> 
-        <%@include file="../includes/JavaScriptCoreLibrariesInclude.jsp" %>       
-        <script type="text/javascript">           
+        <%@include file="../includes/JavaScriptCoreLibrariesInclude.jsp" %>  
+
+        <script type="text/javascript">
             $(document).ready(function () {
-                
+
                 var updateActivities = function (result) {
-                    $("#spanUpdateComboActivity").hide();
+                    alert(result);
                 };
-                
+
                 $("#frmMain").on("submit", function () {
                     $("#btnSubmit").text("Processando . . .");
                 });
@@ -151,42 +152,37 @@
                     $("#btnCancel").text("Processando . . .");
                 });
 
-                $("#descriptionInput").keyup(
-                        function () {
-                            var limite = 255;
-                            var caracteresDigitados = $(this).val().length;
-                            var caracteresRestantes = limite - caracteresDigitados;
-                            $("#counterDescriptionInput").text(caracteresRestantes + " Restantes!");
-                        }
-                );
-
-                $("comboProject").change()(function () {
-                    var service = "task";
-                    var url = "${urlSrv}" + "/" + service;
-                    var action = "findActivities";
-                    var parameters = "task=" + action + "&id=" + $(this).val();
-                    
-                    $.ajax({ 
-                        type: "POST",
-                        url: url,
-                        data: parameters,
-                        async: false,
-                        beforeSend: function () {
-                            $("#spanUpdateComboActivity").text("Enviando...");
-                            $("#spanUpdateComboActivity").show();
-                        },
-                        success: function (result) {
-                            $("#spanUpdateComboActivity").text("Processando...");
-                            updateActivities(result);
-                        },
-                        error: function () {
-                            alert('Ocorreu um erro em chamada ajax!');
-                            $("#spanUpdateComboActivity").hide();
-                        }
-                    });
-                    
+                $("#descriptionInput").on("keyup", function () {
+                    var limite = 255;
+                    var caracteresDigitados = $(this).val().length;
+                    var caracteresRestantes = limite - caracteresDigitados;
+                    $("#counterDescriptionInput").text(caracteresRestantes + " Restantes!");
                 });
 
+                $("#comboProject").on("change", function () {
+                    alert("srv?cmd=TaskSrv&task=find&projectid=" + $(this).val());
+
+                    $.ajax({
+                        url: 'srv',
+                        data: {
+                            cmd: 'TaskSrv',
+                            task: 'find',
+                            projectid: $(this).val()
+                        },
+                        type: "POST",
+                        dataType: "json"
+                    })
+                            .done(function (result) {
+                                alert(result);
+                            })
+                            .fail(function (url, status, errorThrown) {
+                                alert("Sorry, there was a problem!");
+                            })
+                            .always(function (xhr, status) {
+                                alert("The request is complete!");
+                            });
+
+                });
 
             });
         </script>

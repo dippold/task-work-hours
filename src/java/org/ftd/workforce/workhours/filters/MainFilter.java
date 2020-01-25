@@ -26,7 +26,7 @@ import org.softwareworkforce.web.mvc.enums.VIEWS;
  * 
  */
 @WebFilter(filterName = "MainFilter",
-        urlPatterns = {"/mvc", "/ajax", "/WEB-INF/**"})
+        urlPatterns = {"/mvc", "/WEB-INF/**"})
 public class MainFilter implements Filter {
 
     private static final boolean DEBUG = true;

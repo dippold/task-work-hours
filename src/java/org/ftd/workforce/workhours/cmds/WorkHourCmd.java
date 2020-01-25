@@ -14,6 +14,7 @@ import org.softwareworkforce.web.mvc.enums.CRUD;
 import org.softwareworkforce.web.mvc.enums.MODEL;
 import org.softwareworkforce.web.mvc.enums.MVC;
 import org.softwareworkforce.web.mvc.interfaces.ICmd;
+import org.ftd.workforce.workhours.services.SecurityManager;
 
 /**
  *
@@ -31,30 +32,14 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
     };
 
     @Override
-    protected boolean __securityValidate(HttpServletRequest req) {
+    public boolean securityValidated(HttpServletRequest req) {
         return SecurityManager.getInstance().validate(req, PERMISSIONS);
     }
 
-    @Override
-    protected String __add(HttpServletRequest req, HttpServletResponse res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected String __upd(HttpServletRequest req, HttpServletResponse res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected String __del(HttpServletRequest req, HttpServletResponse res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected String __addBuildModel(HttpServletRequest req, HttpServletResponse res) {
+    public String addModel(HttpServletRequest req, HttpServletResponse res) {
         // MENU...
         MenuService.getInstance().buildMenuModel(req);
-        //VIEW...
+        // VIEW...
         String nextCmd = "WEB-INF/views/RegisterWork.jsp";
         // MVC...
         req.setAttribute("viewName", "Registrar trabalho");
@@ -74,31 +59,11 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         // DATASOURCES...            
         req.setAttribute("entity", null);
         req.setAttribute("projects", findProjects(req));
-        req.setAttribute("activities", findActivities(req, null));
+        req.setAttribute("activities", null);
         req.setAttribute("completeness", getCompletenessRange(req));
         req.setAttribute("workhoursday", getWorkHoursDayRange(req));
         
         return nextCmd;
-    }
-
-    @Override
-    protected String __updBuildModel(HttpServletRequest req, HttpServletResponse res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected String __delBuildModel(HttpServletRequest req, HttpServletResponse res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected String __viewBuildModel(HttpServletRequest req, HttpServletResponse res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected String __lstBuildModel(HttpServletRequest req, HttpServletResponse res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     // PRIVATE MEMBERS...    
@@ -160,5 +125,5 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         
         return lst;
     } 
-    
+
 }

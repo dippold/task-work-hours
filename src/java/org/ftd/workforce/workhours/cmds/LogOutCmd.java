@@ -35,5 +35,10 @@ public class LogOutCmd implements ICmd {
         
         return nextCmd;
     }
+
+    @Override
+    public boolean securityValidated(HttpServletRequest req) {
+        return true;
+    }
     
 }
