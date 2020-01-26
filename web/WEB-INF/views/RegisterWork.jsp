@@ -26,39 +26,11 @@
         <!-- MAIN CONTAINER -->   
         <div id="main" class="container-fluid">
             <div class="row">
-                <div class="col-md-6" ><h2 style="text-shadow: 0.1em 0.1em 0.2em black;">${viewName}</h2></div>
+                <div class="col-md-6" >
+                    <h5 style="text-shadow: 0.1em 0.1em 0.2em black;">${viewName}</h5>
+                    <h6 style="text-shadow: 0.1em 0.1em 0.2em black;">Projeto: ${project.name}</h6>
+                </div>
             </div>
-            <!-- FORM PROJECT -->
-            <form id="frmProject" name="frmProject" method="POST" action="${url}">
-                <!-- MVC -->
-                <input type="hidden" id="url" name="url" value="mvc">
-                <input type="hidden" id="cmd" name="cmd" value="${cmd}">
-                <input type="hidden" id="task" name="task" value="addModel">
-                <input type="hidden" id="id" name="id" value="${id}">
-                <input type="hidden" id="pid" name="pid" value="${pid}">
-                <input type="hidden" id="ppid" name="ppid" value="${ppid}">
-                <input type="hidden" id="msg" name="msg" value="${msg}">
-                <input type="hidden" id="projectid" name="projectid" value="${projectId}">
-                <!-- LINHA-1 -->
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="comboProject">Projeto:</label>
-                        <SELECT id="comboProject" name="comboProject" size="1"  required="required" class="form-control" style="box-shadow: 1px 1px 1px #999;">
-                            <c:forEach var="o" items="${projects}">
-                                <c:choose>
-                                    <c:when test="${projectId == null}"><!-- if condition -->
-                                        <option value="${o.id}">${o.name}</option>
-                                    </c:when> 
-                                    <c:otherwise><!-- else condition -->
-                                        <option value="${o.id}" ${entity.projectId == o.id ? 'selected' : ''}>${o.name}</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>                                  
-                        </SELECT> 
-                        <button id="btnProjectSubmit" class="btn btn-primary" style="text-shadow: 0.1em 0.1em 0.2em black; box-shadow: 1px 1px 1px #999" type="submit" >Atualizar</button>
-                    </div>
-                </div><!-- /LINHA-1 -->                
-            </form><!-- /FORM PROJECT -->    
             <!-- FORM MAIN -->
             <form id="frmMain" name="frmMain" method="POST" action="${url}">
                 <!-- MVC -->
@@ -69,7 +41,7 @@
                 <input type="hidden" id="pid" name="pid" value="${pid}">
                 <input type="hidden" id="ppid" name="ppid" value="${ppid}">
                 <input type="hidden" id="msg" name="msg" value="${msg}">
-                <input type="hidden" id="projectid" name="projectid" value="${projectId}">
+                <input type="hidden" id="projectid" name="projectid" value="${project.id}">
                 <!-- /MVC -->
                 <!-- LINHA-2 -->
                 <div class="row">
@@ -87,8 +59,7 @@
                                     </c:otherwise>
                                 </c:choose>                                
                             </c:forEach>                                  
-                        </SELECT>
-                       
+                        </SELECT>                       
                     </div>                    
                 </div><!-- /LINHA-2 -->                
                 <!-- LINHA-3 -->
@@ -168,15 +139,6 @@
                     var caracteresRestantes = limite - caracteresDigitados;
                     $("#counterDescriptionInput").text(caracteresRestantes + " Restantes!");
                 });
-
-                $("#comboProject").on("change", function () {
-                    
-                    if ($("#comboProject").val() <> "") {
-                        alert("Selecionei o projeto " + $("#comboProject").val());
-                    }
-                    
-                });
-
 
             });
         </script>

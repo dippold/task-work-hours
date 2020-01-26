@@ -2,8 +2,12 @@ package org.ftd.workforce.workhours.cmds;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.builderforce.tasks.persistence.daos.ProjectDAO;
+import org.builderforce.tasks.persistence.entities.Project;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.builderforce.tasks.persistence.enums.RULES;
 import org.ftd.workforce.workhours.adapters.IdNameAdapter;
@@ -56,36 +60,36 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         req.setAttribute("btnSubmitLabel", "Registrar");
         req.setAttribute("btnCancelLabel", "Cancelar");
         req.setAttribute("urlToCancel", buildUrl(APP.CMD_HOME.getValue(), MODEL.LST.getName()));
-        // DATASOURCES...            
-        req.setAttribute("entity", null);
-        req.setAttribute("projects", findProjects(req));        
-        req.setAttribute("completeness", getCompletenessRange(req));
-        req.setAttribute("workhoursday", getWorkHoursDayRange(req));        
+        // DATASOURCES...
         
-        String projectId = readParameter(req, "comboProject", null);
-        if (projectId != null) {
-            req.setAttribute("projectId", projectId);
-            req.setAttribute("activities", findActivities(req, Long.parseLong(projectId)));
-        } else {
-            req.setAttribute("activities", null);
+        
+        
+        String id = readParameter(req, "id", null);
+        if (id == null) { // addNew Mode...
+            req.setAttribute("entity", null);
+            String projectId = readParameter(req, "projectid", null);
+            if (projectId != null) {
+                req.setAttribute("project", findProject(Long.parseLong(projectId)));
+                req.setAttribute("activities", findActivities(req, Long.parseLong(projectId)));
+            }
+        } else { // updateMode...
+
         }
-        
+
+        req.setAttribute("completeness", getCompletenessRange(req));
+        req.setAttribute("workhoursday", getWorkHoursDayRange(req));
+
         return nextCmd;
     }
 
-    // PRIVATE MEMBERS...    
-    private List<IdNameAdapter> findProjects(HttpServletRequest req) {
-        List<IdNameAdapter> lst = new ArrayList();
-        
-        lst.add(new IdNameAdapter(null, null));
-        lst.add(new IdNameAdapter(1L, "Catalágo de Produtos"));
-        lst.add(new IdNameAdapter(2L, "Propaga"));
-        lst.add(new IdNameAdapter(3L, "Franquias"));
+    // PRIVATE MEMBERS...
+    private Project findProject(Long id) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(APP.PERSISTENCE_UNIT.getValue());
+        ProjectDAO projectDAO = new ProjectDAO(factory);
 
-        return lst;
+        return projectDAO.findProject(id);
     }
-
-    // PRIVATE MEMBERS...    
+  
     private List<IdNameAdapter> findActivities(HttpServletRequest req, Long projectId) {
         List<IdNameAdapter> lst = new ArrayList();
 
@@ -99,8 +103,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
 
         return lst;
     }
-
-    // PRIVATE MEMBERS...    
+ 
     private List<IdNameAdapter> getCompletenessRange(HttpServletRequest req) {
         List<IdNameAdapter> lst = new ArrayList();
 
@@ -111,9 +114,8 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         lst.add(new IdNameAdapter(100L, "100%"));
 
         return lst;
-    }    
-
-    // PRIVATE MEMBERS...    
+    }
+    
     private List<IdNameAdapter> getWorkHoursDayRange(HttpServletRequest req) {
         List<IdNameAdapter> lst = new ArrayList();
 
@@ -126,11 +128,11 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         lst.add(new IdNameAdapter(7L, "7"));
         lst.add(new IdNameAdapter(8L, "8"));
         lst.add(new IdNameAdapter(9L, "9"));
-        lst.add(new IdNameAdapter(10L, "10")); 
-        lst.add(new IdNameAdapter(11L, "11")); 
-        lst.add(new IdNameAdapter(12L, "12")); 
-        
+        lst.add(new IdNameAdapter(10L, "10"));
+        lst.add(new IdNameAdapter(11L, "11"));
+        lst.add(new IdNameAdapter(12L, "12"));
+
         return lst;
-    } 
+    }
 
 }

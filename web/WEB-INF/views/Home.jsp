@@ -26,8 +26,9 @@
             </c:forEach> 
             -->
             <div class="list-group" style="box-shadow: 1px 1px 1px #999">
+                
                 <c:forEach var="o" items="${userProjects}">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <a href="mvc?cmd=WorkHourCmd&task=addModel&projectid=${o.id}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">${o.name}</h5>
                             <small>3 dias atrás</small>
@@ -37,16 +38,6 @@
                     </a>
                 </c:forEach> 
 
-                <c:forEach var="o" items="${userProjects}">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">${o.name}</h5>
-                            <small>3 dias atrás</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
-                    </a>
-                </c:forEach> 
             </div>
 
             <BR>
