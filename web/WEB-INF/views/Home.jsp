@@ -20,7 +20,7 @@
                     <a href="mvc?cmd=WorkHourCmd&task=addModel&projectid=${o.id}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1" style="text-shadow: 0.1em 0.1em 0.2em black">${o.name}</h5>
-                            <small>3 dias atrás</small>
+                            <small>${o.info2} tarefa(s)</small>
                         </div>
                         <p class="mb-1">${o.description}</p>
                         <small>Empresa: ${o.info1}</small>

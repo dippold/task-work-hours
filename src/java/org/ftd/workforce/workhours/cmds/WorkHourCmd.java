@@ -12,7 +12,6 @@ import org.builderforce.tasks.persistence.daos.UserTaskDAO;
 import org.builderforce.tasks.persistence.entities.Project;
 import org.builderforce.tasks.persistence.entities.Task;
 import org.builderforce.tasks.persistence.entities.UserTask;
-import org.ftd.workforce.workhours.services.SecurityManager;
 import org.builderforce.tasks.persistence.enums.RULES;
 import org.ftd.workforce.workhours.adapters.IdNameAdapter;
 import org.ftd.workforce.workhours.enums.APP;
@@ -72,7 +71,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
             if (projectId != null) {
                 req.setAttribute("project", findProject(Long.parseLong(projectId)));
                 Long userId = Long.parseLong(getSessionValue(req, "userId"));
-                req.setAttribute("activities", findActivities(userId, Long.parseLong(projectId)));
+                req.setAttribute("activities", findTaks(userId, Long.parseLong(projectId)));
             }
         } else { // updateMode...
 
@@ -92,7 +91,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         return projectDAO.findProject(id);
     }
 
-    private List<IdNameAdapter> findActivities(Long userId, Long projectId) {
+    private List<IdNameAdapter> findTaks(Long userId, Long projectId) {
         List<IdNameAdapter> lst = new ArrayList();
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(APP.PERSISTENCE_UNIT.getValue());
         TaskDAO taskDAO = new TaskDAO(factory);

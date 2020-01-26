@@ -10,10 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.builderforce.tasks.persistence.daos.CompanyDAO;
 import org.builderforce.tasks.persistence.daos.ProjectDAO;
+import org.builderforce.tasks.persistence.daos.TaskDAO;
 import org.builderforce.tasks.persistence.daos.UserProjectDAO;
+import org.builderforce.tasks.persistence.daos.UserTaskDAO;
 import org.builderforce.tasks.persistence.entities.Company;
 import org.builderforce.tasks.persistence.entities.Project;
+import org.builderforce.tasks.persistence.entities.Task;
 import org.builderforce.tasks.persistence.entities.UserProject;
+import org.builderforce.tasks.persistence.entities.UserTask;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.builderforce.tasks.persistence.enums.RULES;
 import org.ftd.workforce.workhours.adapters.IdNameAdapter;
@@ -71,14 +75,35 @@ public class HomeCmd implements ICmd {
         List<UserProject> userProjects = userProjectDAO.findProjects(userId);
         List<IdNameAdapter> lst = new ArrayList<>();
 
-        for (UserProject o:userProjects) {
+        for (UserProject o : userProjects) {
             Project p = projectDAO.findProject(o.getProjectId());
             Company c = companyDAO.find(p.getCompanyId());
-            lst.add(new IdNameAdapter(o.getProjectId(), p.getName(),p.getDescription(),c.getName()));
+            lst.add(
+                    new IdNameAdapter(
+                            o.getProjectId(), 
+                            p.getName(), 
+                            p.getDescription(), 
+                            c.getName(),
+                            Integer.toString(countProjectUserTasks(userId, p.getId()))
+                    ));
         }
 
-
         return lst;
+    }
+
+    private int countProjectUserTasks(Long userId, Long projectId) {
+        int count = 0;
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(APP.PERSISTENCE_UNIT.getValue());
+        TaskDAO taskDAO = new TaskDAO(factory);
+        UserTaskDAO userTaskDAO = new UserTaskDAO(factory);
+        List<Task> projectTasks = taskDAO.findAllByProject(projectId);
+
+        for (Task task : projectTasks) {
+            List<UserTask> userTasks = userTaskDAO.find(userId, task.getId());
+            count += userTasks.size();
+        }
+
+        return count;
     }
 
 }
