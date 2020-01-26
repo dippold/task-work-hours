@@ -10,7 +10,7 @@
     <body>
         <%@include file="../includes/MenuInclude.jsp" %>
         <div class="container">
-            <h3>Seja Bem-Vindo!</h3>
+            <h6>Seja Bem-Vindo!</h6>
             <p>Esse é um aplicativo simples e tem o objetivo de apontamento de horas para equipes que executam tarefas em projetos.</p>
 
 
