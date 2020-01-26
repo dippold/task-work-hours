@@ -12,7 +12,7 @@
         <div class="container">
             <BR>
             <h6>
-                Seja bem-bindo, <span style="color: blue; text-shadow: 0.1em 0.1em 0.2em black" href="#">${userName}</span> !
+                Seja bem-vindo, <span style="color: blue; text-shadow: 0.1em 0.1em 0.2em black" href="#">${userName}</span> !
                 &nbsp;Selecione um projeto abaixo p/ registrar horas trabalhadas.
             </h6>
             <div class="list-group" style="box-shadow: 1px 1px 1px #999">

@@ -27,8 +27,8 @@
         <div id="main" class="container-fluid">
             <div class="row">
                 <div class="col-md-6" >
-                    <h5 style="text-shadow: 0.1em 0.1em 0.2em black;">${viewName}</h5>
-                    <h6 style="text-shadow: 0.1em 0.1em 0.2em black;">Projeto: ${project.name}</h6>
+                    <h6 style="text-shadow: 0.1em 0.1em 0.2em black;">${viewName} - ${project.name}</h6>
+                    <!-- <h7 style="text-shadow: 0.1em 0.1em 0.2em black;">Projeto: ${project.name}</h7> -->
                 </div>
             </div>
             <!-- FORM MAIN -->
