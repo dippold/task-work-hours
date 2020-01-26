@@ -23,9 +23,11 @@
                             <a class="dropdown-item" href="#">Atividades</a>
                         </div>
                     </li>
+                    <!--
                     <li class="nav-item">
                         <a class="nav-link" style="color: blue; text-shadow: 0.1em 0.1em 0.2em black" href="#">${userName}</a>
                     </li>
+                    -->
                 </ul>
                 <form id="frmLogout" method="post" action="${urlToLogout}">
                     <button id="btnLogout" class="btn btn-primary my-2 my-sm-0" style="text-shadow: 0.1em 0.1em 0.2em black; box-shadow: 1px 1px 1px #999" type="submit">Sair</button>

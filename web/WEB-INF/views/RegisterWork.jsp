@@ -46,9 +46,9 @@
                 <!-- LINHA-2 -->
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label for="comboActivity">Atividade:</label>
+                        <label for="comboTask">Atividade:</label>
                         <span id="spanUpdateComboActivity" class="label label-warning fa-blink" style="display: none; color: red;font-size: 11px; text-shadow: 0.1em 0.1em 0.2em black">Processando...</span>
-                        <SELECT id="comboActivity" name="comboActivity" size="1"  required="required" class="form-control" style="box-shadow: 1px 1px 1px #999;">
+                        <SELECT id="comboTask" name="comboTask" size="1"  required="required" class="form-control" style="box-shadow: 1px 1px 1px #999;">
                             <c:forEach var="o" items="${activities}">
                                 <c:choose>
                                     <c:when test="${entity == null}"><!-- if condition -->

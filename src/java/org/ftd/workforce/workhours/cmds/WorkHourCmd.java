@@ -7,7 +7,11 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.builderforce.tasks.persistence.daos.ProjectDAO;
+import org.builderforce.tasks.persistence.daos.TaskDAO;
+import org.builderforce.tasks.persistence.daos.UserTaskDAO;
 import org.builderforce.tasks.persistence.entities.Project;
+import org.builderforce.tasks.persistence.entities.Task;
+import org.builderforce.tasks.persistence.entities.UserTask;
 import org.ftd.workforce.workhours.services.SecurityManager;
 import org.builderforce.tasks.persistence.enums.RULES;
 import org.ftd.workforce.workhours.adapters.IdNameAdapter;
@@ -61,16 +65,14 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
         req.setAttribute("btnCancelLabel", "Cancelar");
         req.setAttribute("urlToCancel", buildUrl(APP.CMD_HOME.getValue(), MODEL.LST.getName()));
         // DATASOURCES...
-        
-        
-        
         String id = readParameter(req, "id", null);
         if (id == null) { // addNew Mode...
             req.setAttribute("entity", null);
             String projectId = readParameter(req, "projectid", null);
             if (projectId != null) {
                 req.setAttribute("project", findProject(Long.parseLong(projectId)));
-                req.setAttribute("activities", findActivities(req, Long.parseLong(projectId)));
+                Long userId = Long.parseLong(getSessionValue(req, "userId"));
+                req.setAttribute("activities", findActivities(userId, Long.parseLong(projectId)));
             }
         } else { // updateMode...
 
@@ -89,21 +91,33 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
 
         return projectDAO.findProject(id);
     }
-  
-    private List<IdNameAdapter> findActivities(HttpServletRequest req, Long projectId) {
+
+    private List<IdNameAdapter> findActivities(Long userId, Long projectId) {
         List<IdNameAdapter> lst = new ArrayList();
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(APP.PERSISTENCE_UNIT.getValue());
+        TaskDAO taskDAO = new TaskDAO(factory);
+        UserTaskDAO userTaskDAO = new UserTaskDAO(factory);
+        List<Task> projectTasks = taskDAO.findAllByProject(projectId);
 
         lst.add(new IdNameAdapter(null, null));
-        lst.add(new IdNameAdapter(1L, "Atividade-1"));
-        lst.add(new IdNameAdapter(2L, "Atividade-2"));
-        lst.add(new IdNameAdapter(3L, "Atividade-3"));
-        lst.add(new IdNameAdapter(4L, "Atividade-4"));
-        lst.add(new IdNameAdapter(5L, "Atividade-5"));
-        lst.add(new IdNameAdapter(6L, "Atividade-6"));
+        
+//        for (Task task:projectTasks) {
+//            List<UserTask> userTasks = userTaskDAO.find(userId, task.getId());
+//            if (!userTasks.isEmpty()) {
+//                lst.add(new IdNameAdapter(task.getId(), task.getName()));
+//            }
+//        }
+
+        projectTasks.forEach((task) -> {
+            List<UserTask> userTasks = userTaskDAO.find(userId, task.getId());
+            if (!userTasks.isEmpty()) {
+                lst.add(new IdNameAdapter(task.getId(), task.getName()));
+            }
+        });
 
         return lst;
     }
- 
+
     private List<IdNameAdapter> getCompletenessRange(HttpServletRequest req) {
         List<IdNameAdapter> lst = new ArrayList();
 
@@ -115,7 +129,7 @@ public class WorkHourCmd extends AbstractCmd implements ICmd {
 
         return lst;
     }
-    
+
     private List<IdNameAdapter> getWorkHoursDayRange(HttpServletRequest req) {
         List<IdNameAdapter> lst = new ArrayList();
 

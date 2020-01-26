@@ -10,36 +10,23 @@
     <body>
         <%@include file="../includes/MenuInclude.jsp" %>
         <div class="container">
-            <h6>Seja Bem-Vindo!</h6>
-            <p>Esse é um aplicativo simples e tem o objetivo de apontamento de horas para equipes que executam tarefas em projetos.</p>
-
-
-            <!--
-            <c:forEach var="o" items="${userProjects}">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <div class="input-group">
-                            <a id="btnProjeto${o.id}" href="${urlToCancel}" class="btn btn-primary" style="width: 400px; text-shadow: 0.1em 0.1em 0.2em black; box-shadow: 1px 1px 1px #999">${o.name}</a>
-                        </div>                
-                    </div>
-                </div>
-            </c:forEach> 
-            -->
+            <BR>
+            <h6>
+                Seja bem-bindo, <span style="color: blue; text-shadow: 0.1em 0.1em 0.2em black" href="#">${userName}</span> !
+                &nbsp;Selecione um projeto abaixo p/ registrar horas trabalhadas.
+            </h6>
             <div class="list-group" style="box-shadow: 1px 1px 1px #999">
-                
                 <c:forEach var="o" items="${userProjects}">
                     <a href="mvc?cmd=WorkHourCmd&task=addModel&projectid=${o.id}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">${o.name}</h5>
+                            <h5 class="mb-1" style="text-shadow: 0.1em 0.1em 0.2em black">${o.name}</h5>
                             <small>3 dias atrás</small>
                         </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
+                        <p class="mb-1">${o.description}</p>
+                        <small>Empresa: ${o.info1}</small>
                     </a>
                 </c:forEach> 
-
             </div>
-
             <BR>
         </div>
         <%@include file="../includes/JavaScriptCoreLibrariesInclude.jsp" %>       

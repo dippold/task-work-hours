@@ -8,8 +8,10 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.builderforce.tasks.persistence.daos.CompanyDAO;
 import org.builderforce.tasks.persistence.daos.ProjectDAO;
 import org.builderforce.tasks.persistence.daos.UserProjectDAO;
+import org.builderforce.tasks.persistence.entities.Company;
 import org.builderforce.tasks.persistence.entities.Project;
 import org.builderforce.tasks.persistence.entities.UserProject;
 import org.ftd.workforce.workhours.services.SecurityManager;
@@ -64,18 +66,17 @@ public class HomeCmd implements ICmd {
     private List<IdNameAdapter> findUserProjects(Long userId) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(APP.PERSISTENCE_UNIT.getValue());
         ProjectDAO projectDAO = new ProjectDAO(factory);
+        CompanyDAO companyDAO = new CompanyDAO(factory);
         UserProjectDAO userProjectDAO = new UserProjectDAO(factory);
         List<UserProject> userProjects = userProjectDAO.findProjects(userId);
         List<IdNameAdapter> lst = new ArrayList<>();
 
-//        for (UserProject o:userProjects) {
-//            Project p = projectDAO.findProject(o.getProjectId());
-//            lst.add(new IdNameAdapter(o.getProjectId(), p.getName()));
-//        }
-        userProjects.forEach((o) -> {
+        for (UserProject o:userProjects) {
             Project p = projectDAO.findProject(o.getProjectId());
-            lst.add(new IdNameAdapter(o.getProjectId(), p.getName()));
-        });
+            Company c = companyDAO.find(p.getCompanyId());
+            lst.add(new IdNameAdapter(o.getProjectId(), p.getName(),p.getDescription(),c.getName()));
+        }
+
 
         return lst;
     }
